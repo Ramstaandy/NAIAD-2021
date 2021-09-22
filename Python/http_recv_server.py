@@ -12,14 +12,17 @@ class HTTPPOSTServer(HTTPServer):
     def __init__(self, *args, **kwargs):
         super(HTTPPOSTServer, self).__init__(*args, **kwargs)
         self.recv_route = {}
+        html_file = open("get_resp.html", 'r')
+        self.get_resp = html_file.read().encode("utf-8")
+        html_file.close()
 
 # Default SimpleHTTPRequestHandler, modded with POST responses
 # so it can receive routes from the ground crew
-class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+class HTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(b'Send the route with POST!')
+        self.wfile.write(self.server.get_resp)
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])

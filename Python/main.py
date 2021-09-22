@@ -21,7 +21,7 @@ trilatsubproc.Start()
 motorsubproc.SetDepth(0.0)'''
 
 #Receives the route from the ground crew
-httpd = revsrev.HTTPPOSTServer(("localhost", 4000), SimpleHTTPRequestHandler)
+httpd = recvserv.HTTPPOSTServer(("localhost", 4000), recvserv.HTTPRequestHandler)
 route = {}
 while route == {}:
     httpd.handle_request()
